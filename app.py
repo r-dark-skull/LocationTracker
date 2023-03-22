@@ -4,7 +4,7 @@ import json
 
 app = Flask(__name__)
 
-cfg = json.loads(open('.cfg').read())
+cfg = json.load(open('.cfg'))
 
 dwebHook = cfg['dwebHook']
 
