@@ -1,2 +1,4 @@
 venv/
 .cfg
+service.bash
+*.service
